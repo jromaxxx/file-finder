@@ -1,0 +1,33 @@
+name: anti-rata-file-scanner
+version: '1.0'
+summary: Escanea y elimina archivos duplicados y grandes
+description: |
+  AntiRata File Scanner es una herramienta libre que te ayuda a encontrar y eliminar archivos duplicados y grandes en tu sistema.
+  
+confinement: strict
+base: core20
+
+apps:
+  anti-rata-file-scanner:
+    command: bin/anti-rata-file-scanner
+    desktop: gui/anti-rata-file-scanner.desktop
+    plugs:
+      - desktop
+      - desktop-legacy
+      - home
+      - removable-media
+
+parts:
+  anti-rata-file-scanner:
+    plugin: python
+    source: .
+    python-packages:
+      - pandas
+      - PySide6
+      - humanize
+    stage-packages:
+      - libglib2.0-0
+      - libgdk-pixbuf2.0-0
+    organize:
+      gui/anti-rata-file-scanner.desktop: usr/share/applications/anti-rata-file-scanner.desktop
+      gui/anti-rata-file-scanner.svg: usr/share/icons/hicolor/scalable/apps/anti-rata-file-scanner.svg

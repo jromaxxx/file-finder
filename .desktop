@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=AntiRata File Scanner
+Comment=Escanea tu sistema en busca de archivos duplicados y grandes
+Exec=anti-rata-file-scanner %U
+Icon=anti-rata-file-scanner
+Terminal=false
+Type=Application
+Categories=Utility;System;
+MimeType=application/x-directory;
