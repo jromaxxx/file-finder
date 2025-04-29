@@ -1,33 +1,54 @@
-name: anti-rata-file-scanner
-version: '1.0'
-summary: Escanea y elimina archivos duplicados y grandes
+name: big-file-eraser
+version: "1.0.0"
+summary: A simple file manager to find and delete large files.
 description: |
-  AntiRata File Scanner es una herramienta libre que te ayuda a encontrar y eliminar archivos duplicados y grandes en tu sistema.
-  
+  Big File Eraser is a lightweight file manager that helps you find and delete large files easily.
+
+base: core22
 confinement: strict
-base: core20
+grade: stable
 
 apps:
-  anti-rata-file-scanner:
-    command: bin/anti-rata-file-scanner
-    desktop: gui/anti-rata-file-scanner.desktop
-    plugs:
-      - desktop
-      - desktop-legacy
-      - home
-      - removable-media
+  big-file-eraser:
+    command: python3 $SNAP/main.py  # Ensure this points to your main script
 
 parts:
-  anti-rata-file-scanner:
+  big-file-eraser:
     plugin: python
     source: .
     python-packages:
-      - pandas
       - PySide6
-      - humanize
-    stage-packages:
-      - libglib2.0-0
-      - libgdk-pixbuf2.0-0
-    organize:
-      gui/anti-rata-file-scanner.desktop: usr/share/applications/anti-rata-file-scanner.desktop
-      gui/anti-rata-file-scanner.svg: usr/share/icons/hicolor/scalable/apps/anti-rata-file-scanner.svg
+    stage-packages:  # Add required system libraries and Python interpreter
+      - python3
+      - python3-pip
+      - libx11-6
+      - libfontconfig1
+      - libxkbcommon0
+      - libegl1
+      - libgl1
+      - libpulse0
+      - libxcb1
+      - libxcb-dri3-0
+      - libxcb-cursor0
+      - libxcb-icccm4
+      - libxcb-image0
+      - libxcb-keysyms1
+      - libxcb-render-util0
+      - libxcb-render0
+      - libxcb-shape0
+      - libxcb-xkb1
+      - libxkbcommon-x11-0
+      - libwayland-cursor0
+      - libwayland-egl1
+      - libwayland-client0
+      - libatomic1
+      - libasound2
+      - libnss3
+      - libxrandr2
+      - libxrender1
+      - libxi6
+      - libxtst6
+      - libxcomposite1  # Corrected case
+      - libxdamage1     # Corrected case
+      - libxkbfile1
+      - libxslt1.1
