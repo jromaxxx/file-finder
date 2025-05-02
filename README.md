@@ -1,4 +1,4 @@
-# 🐧 AntiRata File Scanner
+Big file eraser
 
 **Libérate de los softwares privativos que te cobran por limpiar archivos duplicados.**  
 Esta herramienta 100% libre escanea tus carpetas, encuentra duplicados y archivos pesados usando Python, Qt y pandas.
@@ -13,7 +13,7 @@ Esta herramienta 100% libre escanea tus carpetas, encuentra duplicados y archivo
 ## ⚙️ Requisitos
 
 - Python 3.9+
-- PySide6
+- PyQt6
 - pandas
 - humanize
 

@@ -1,6 +1,6 @@
 name: big-file-eraser
 version: "1.0.0"
-summary: A simple file manager to find and delete large files.
+summary: A simple file manager to find and delete large files easily.
 description: |
   Big File Eraser is a lightweight file manager that helps you find and delete large files easily.
 
@@ -10,61 +10,56 @@ grade: stable
 
 apps:
   big-file-eraser:
-    command: python3 $SNAP/main.py  # Ensure this points to your main script
+    command: python3 $SNAP/main.py
+    environment:
+      PYTHONPATH: $SNAP/lib/python3.10/site-packages:$SNAP/usr/lib/python3.10
+      LD_LIBRARY_PATH: $SNAP/lib/python3.10/site-packages/PyQt6/Qt6/lib:$SNAP/usr/lib:$LD_LIBRARY_PATH
+    plugs:
+      - x11
+      - opengl
+      - network
 
 parts:
-  big-file-eraser:
+  eraser:
     plugin: python
     source: .
     python-packages:
-      - PySide6
+      - pandas
+      - PyQt6
+      - humanize
     stage-packages:
-      - python3
-      - python3-minimal
-      - python3-pip
-      - python3-full
-      - libx11-6
+      - libglib2.0-0
       - libfontconfig1
       - libxkbcommon0
-      - libegl1
-      - libgl1
-      - libxcb1
-      - libxcb-dri3-0
-      - libxcb-cursor0
-      - libxcb-icccm4
-      - libxcb-image0
-      - libxcb-keysyms1
-      - libxcb-render-util0
-      - libxcb-render0
-      - libxcb-shape0
-      - libxcb-xkb1
-      - libxkbcommon-x11-0
-      - libwayland-cursor0
-      - libwayland-egl1
-      - libwayland-client0
-      - libatomic1
-      - libnss3
-      - libxrandr2
-      - libxrender1
+      - python3
+      - qt6-base-dev
+      - qt6-wayland
+      - qt6-image-formats-plugins
+      - libqt6gui6
+      - libqt6widgets6
+      - libqt6opengl6
+      - libqt6printsupport6
+      - libqt6quick6
+      - libqt6quickcontrols2-6
+      - libqt6waylandclient6
       - libxi6
-      - libxtst6
-      - libxcomposite1
-      - libxdamage1
+      - libxrender1
       - libcairo2
-      - libcairo-gobject2
-      - libatk1.0-0
-      - libgdk-pixbuf2.0-0
-      - libgtk-3-0
       - libpango-1.0-0
       - libpangocairo-1.0-0
+      - libgdk-pixbuf2.0-0
+      - libxrandr2
+      - libxcomposite1
+      - libxdamage1
+      - libatk1.0-0
+      - libatk-bridge2.0-0
+      - libgtk-3-0
       - libpulse0
-      - libasound2
-      - libxkbfile1
-      - libxslt1.1
-      - libspeechd2
-      - libmysqlclient21
-      - libodbc2
-      - libpq5
-      - libqt6waylandcompositor6
-      - libqt6virtualkeyboard6
-      - libqt6quick3dscene2d6
+      - libsndfile1
+      - libvorbis0a
+      - libvorbisenc2
+      - libogg0
+    override-build: |
+      craftctl default
+      mkdir -p $CRAFT_PART_INSTALL/lib/python3.12/site-packages/PyQt6/Qt6/plugins/platformthemes
+      cp -r .venv/lib/python3.12/site-packages/PyQt6/Qt6/plugins/platformthemes/* $CRAFT_PART_INSTALL/lib/python3.12/site-packages/PyQt6/Qt6/plugins/platformthemes/

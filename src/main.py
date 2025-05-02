@@ -1,10 +1,10 @@
 # main.py
-from PySide6.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QFileDialog, QVBoxLayout, QHBoxLayout, QPushButton, QTableWidget, QTableWidgetItem,
     QProgressBar, QMessageBox, QWidget, QLineEdit, QHeaderView
 )
-from PySide6.QtCore import Qt, QTimer
-from PySide6.QtGui import QIcon
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QIcon
 import os
 
 
@@ -12,7 +12,7 @@ class FileManager(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Big File Eraser")
-        self.resize(800, 60)
+        self.resize(800, 600)
 
         # Central Widget
         central_widget = QWidget()
@@ -38,12 +38,12 @@ class FileManager(QMainWindow):
         self.file_table = QTableWidget()
         self.file_table.setColumnCount(3)
         self.file_table.setHorizontalHeaderLabels(["File Name", "Size", "Actions"])
-        self.file_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)  # File Name column stretches
-        self.file_table.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeToContents)  # Size column auto-resizes
-        self.file_table.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeToContents)  # Actions column auto-resizes
-        self.file_table.setEditTriggers(QTableWidget.NoEditTriggers)
-        self.file_table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.file_table.setSelectionMode(QTableWidget.SingleSelection)
+        self.file_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)  # File Name column stretches
+        self.file_table.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)  # Size column auto-resizes
+        self.file_table.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)  # Actions column auto-resizes
+        self.file_table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.file_table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.file_table.setSelectionMode(QTableWidget.SelectionMode.SingleSelection)
         self.file_table.setVisible(False)  # Initially hidden
         self.main_layout.addWidget(self.file_table)
 
@@ -124,7 +124,7 @@ class FileManager(QMainWindow):
 
         # File Size
         size_item = QTableWidgetItem(self.human_readable_size(size))
-        size_item.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        size_item.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.file_table.setItem(row_position, 1, size_item)
 
         # Actions
@@ -137,9 +137,9 @@ class FileManager(QMainWindow):
         """Delete the selected file after confirmation."""
         reply = QMessageBox.question(
             self, "Delete File", f"Are you sure you want to delete:\n{file_path}?",
-            QMessageBox.Yes | QMessageBox.No
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
-        if reply == QMessageBox.Yes:
+        if reply == QMessageBox.StandardButton.Yes:
             try:
                 os.remove(file_path)
                 self.file_table.removeRow(row)
